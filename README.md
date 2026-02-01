@@ -17,7 +17,7 @@ It is built using **Node.js, Express.js, MongoDB, EJS, and Tailwind CSS**.
 
 ### Host
 - Add, edit, delete own homes  
-- View only their own favorite list  
+- View only their own home list  
 - Secure login and session management  
 
 ---
