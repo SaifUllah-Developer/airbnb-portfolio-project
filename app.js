@@ -53,6 +53,12 @@ app.use("/host", (req, res, next) => {
 app.use("/host", hostRouter);
 app.use(authRouter);
 
+//////
+app.use((err, req, res, next) => {
+  console.error("ERROR:", err);
+  res.status(500).send("Internal Server Error");
+});
+
 app.use(errorsController.pageNotFound);
 
 const PORT = process.env.PORT || 3001;
