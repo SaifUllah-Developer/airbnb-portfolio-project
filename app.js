@@ -15,6 +15,7 @@ const hostRouter = require("./routes/hostRouter");
 const authRouter = require("./routes/authRouter");
 const rootDir = require("./utils/pathUtil");
 const errorsController = require("./controllers/errors");
+const cloudinaryStorage = require("./utils/cloudinary");
 
 const app = express();
 const DB_PATH = process.env.MONGODB_URI;
@@ -27,26 +28,9 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-
-const multerOptions = {
-  storage,
-};
-
 app.use(express.urlencoded());
-app.use(multer(multerOptions).single("photo"));
+app.use(multer({ storage: cloudinaryStorage }).single("photo"));
 app.use(express.static(path.join(rootDir, "public")));
-app.use("/uploads", express.static(path.join(rootDir, "uploads")));
-app.use("/host/uploads", express.static(path.join(rootDir, "uploads")));
-app.use("/homes/uploads", express.static(path.join(rootDir, "uploads")));
 
 app.use(
   session({
