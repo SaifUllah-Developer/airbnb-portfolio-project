@@ -1,14 +1,16 @@
 <header class="bg-red-500 text-white p-4 shadow-md">
   <nav class="flex justify-between items-center max-w-7xl mx-auto">
     <ul class="flex gap-4 items-center">
-      <li>
-        <a
-          href="/"
-          class="py-2 px-4 rounded transition duration-300 <%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %>"
-        >
-          airbnb
-        </a>
-      </li>
+      <% if(!isLoggedIn || user.userType === 'guest') { %>
+        <li>
+          <a
+            href="/"
+            class="py-2 px-4 rounded transition duration-300 <%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %>"
+          >
+            airbnb
+          </a>
+        </li>
+      <% } %>
 
       <% if(isLoggedIn) { %>
         <% if(user && user.userType === 'guest') { %>
