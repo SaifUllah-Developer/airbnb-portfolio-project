@@ -12,7 +12,8 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "airbnb-homes",
-    allowed_formats: ["jpg", "png", "jpeg"],
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
+    transformation: [{ width: 800, height: 600, crop: "limit" }],
   },
 });
 
