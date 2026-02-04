@@ -46,7 +46,11 @@ exports.postLogin = async (req, res, next) => {
     userType: user.userType,
   };
   await req.session.save();
-  res.redirect("/");
+  if (req.session.user.userType === "guest") {
+    res.redirect("/");
+  } else {
+    res.redirect("/host/host-home-list");
+  }
 };
 
 exports.postLogout = (req, res, next) => {

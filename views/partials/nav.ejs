@@ -1,4 +1,4 @@
-<header class="bg-red-500 text-white p-4 shadow-md">
+<header class="bg-red-600 text-white p-4 shadow-md">
   <nav class="flex justify-between items-center max-w-7xl mx-auto">
     <ul class="flex gap-4 items-center">
       <% if(!isLoggedIn || user.userType === 'guest') { %>
@@ -37,7 +37,7 @@
               href="/bookings"
               class="py-2 px-4 rounded transition duration-300 <%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400' %>"
             >
-              Bookings
+              Book Now
             </a>
           </li>
 

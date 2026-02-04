@@ -27,11 +27,14 @@ exports.getHomes = (req, res, next) => {
 };
 
 exports.getBookings = (req, res, next) => {
-  res.render("store/bookings", {
-    pageTitle: "My Bookings",
-    currentPage: "bookings",
-    isLoggedIn: req.session.isLoggedIn,
-    user: req.session.user,
+  Home.find().then((registeredHomes) => {
+    res.render("store/bookings", {
+      registeredHomes: registeredHomes,
+      pageTitle: "My Bookings",
+      currentPage: "bookings",
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+    });
   });
 };
 

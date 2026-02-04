@@ -1,10 +1,231 @@
 <%- include('../partials/head') %>
-  </head>
-  <body>
-    <%- include('../partials/nav') %>
-    <main class="container mx-auto mt-20 text-center min-h-screen">
-      <h2 class="text-6xl font-bold text-red-500 mb-4">My Bookings</h2>
-      <p class="text-2xl text-gray-700 mb-8">Bookings will appear here</p>
-    </main>
-  </body>
+</head>
+<body class="bg-gray-50">
+  <%- include('../partials/nav') %>
+
+  <!-- Hero Section -->
+  <div class="bg-gradient-to-t from-red-600 to-red-400 text-white py-16 px-4">
+    <div class="container mx-auto max-w-6xl">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">
+        Book Your Dream Accommodation Today
+      </h1>
+      <p class="text-xl text-red-50 mb-2">
+        Browse <%= registeredHomes.length %> premium properties and secure your perfect getaway
+      </p>
+      <p class="text-red-100">
+        Enjoy seamless bookings with verified hosts and guaranteed quality stays at the best prices
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="container mx-auto max-w-6xl px-4 py-12">
+    
+    <!-- Featured Section Header -->
+    <div class="mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+        Homes available for bookings
+      </h2>
+      <p class="text-gray-600 text-lg">
+        Explore our selection of premium accommodations carefully vetted for comfort and quality
+      </p>
+      <div class="flex gap-2 mt-4">
+        <div class="h-1 w-16 bg-red-500 rounded"></div>
+        <div class="h-1 w-8 bg-red-300 rounded"></div>
+      </div>
+    </div>
+
+    <!-- Properties Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      <% registeredHomes.forEach(home => { %>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1 flex flex-col h-full">
+          
+          <!-- Image Container -->
+          <div class="relative overflow-hidden h-56 bg-gray-200">
+            <img 
+              src="<%= home.photo %>" 
+              alt="<%= home.houseName %>" 
+              class="w-full h-full object-cover hover:scale-110 transition duration-300"
+            >
+            <div class="absolute top-4 right-4 bg-white rounded-full px-3 py-1 shadow-md">
+              <div class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-yellow-400">
+                  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm font-semibold text-gray-800"><%= home.rating %></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-5 flex flex-col flex-grow">
+            
+            <!-- Title -->
+            <h3 class="text-xl font-bold text-gray-800 mb-1 line-clamp-2">
+              <%= home.houseName %>
+            </h3>
+            
+            <!-- Location -->
+            <div class="flex items-center text-gray-600 mb-3 text-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 text-red-500 mr-2">
+                <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.75.75 0 00.723 0l.028-.015.071-.041a60.856 60.856 0 003.738-2.747 59.5 59.5 0 005.92-6.3 60.75 60.75 0 002.88-7.773 60.978 60.978 0 00.006-8.071 60.852 60.852 0 00-2.884-7.768 60.906 60.906 0 00-5.92-6.299 60.864 60.864 0 00-3.738-2.747A.75.75 0 0012 .75a.75.75 0 00-.722.016l-.028.015-.071.041A60.853 60.853 0 007.51 2.96a59.5 59.5 0 00-5.92 6.3 60.75 60.75 0 00-2.88 7.773 60.978 60.978 0 00-.006 8.071 60.852 60.852 0 002.884 7.768 60.906 60.906 0 005.92 6.299 60.864 60.864 0 003.738 2.747zM12 16.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" clip-rule="evenodd" />
+              </svg>
+              <%= home.location %>
+            </div>
+
+            <!-- Description -->
+            <p class="text-gray-600 text-sm mb-4 line-clamp-2 flex-grow">
+              <%= home.description || 'Comfortable accommodation with modern amenities' %>
+            </p>
+
+            <!-- Price Section -->
+            <div class="border-t border-gray-200 pt-4 mb-4">
+              <div class="flex justify-between items-end">
+                <div>
+                  <p class="text-gray-500 text-xs mb-1">Starting from</p>
+                  <p class="text-2xl font-bold text-red-500">
+                    Rs<%= home.price %>
+                    <span class="text-sm text-gray-600 font-normal">/night</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Host Contact Information Section -->
+    <section class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-8 mb-16">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8">Host Contact Information</h2>
+      
+      <!-- Host Contact Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Host 1 -->
+        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-600">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Mountain Cabin Host</h3>
+          <div class="space-y-3">
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-blue-600 mr-3"><path d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.955a1.5 1.5 0 01-.727 1.573l-2.203 1.102a11.002 11.002 0 005.016 5.009l1.102-2.205a1.5 1.5 0 011.573-.727l4.955 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25A8.97 8.97 0 003.75 20.25H1.5a3 3 0 01-3-3V4.5z" /></svg>
+              <span>+92-321-1234567</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-blue-600 mr-3"><path d="M3 8.688v7.022c0 1.278.895 2.37 2.129 2.369 1.235.002 2.129-.091 3.976 1.735a4.5 4.5 0 001.422-.254c1.491.784 1.503.853 2.473 1.43 1.364.798 2.846.645 3.5.165.655-.48.655-1.592.655-2.405V8.688c0-.979-.786-1.767-1.765-1.767h-13.5A1.766 1.766 0 003 8.688z" /></svg>
+              <span>contact@airbnb.com</span>
+            </div>
+            <a href="tel:+923211234567" class="inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Call Host</a>
+          </div>
+        </div>
+
+        <!-- Host 2 -->
+        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-600">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Seaside Villa Host</h3>
+          <div class="space-y-3">
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-blue-600 mr-3"><path d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.955a1.5 1.5 0 01-.727 1.573l-2.203 1.102a11.002 11.002 0 005.016 5.009l1.102-2.205a1.5 1.5 0 011.573-.727l4.955 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25A8.97 8.97 0 003.75 20.25H1.5a3 3 0 01-3-3V4.5z" /></svg>
+              <span>+92-300-9876543</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-blue-600 mr-3"><path d="M3 8.688v7.022c0 1.278.895 2.37 2.129 2.369 1.235.002 2.129-.091 3.976 1.735a4.5 4.5 0 001.422-.254c1.491.784 1.503.853 2.473 1.43 1.364.798 2.846.645 3.5.165.655-.48.655-1.592.655-2.405V8.688c0-.979-.786-1.767-1.765-1.767h-13.5A1.766 1.766 0 003 8.688z" /></svg>
+              <span>host@seaside.com</span>
+            </div>
+            <a href="tel:+923009876543" class="inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Call Host</a>
+          </div>
+        </div>
+
+        <!-- Host 3 -->
+        <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-600">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">City Apartment Host</h3>
+          <div class="space-y-3">
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-blue-600 mr-3"><path d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.955a1.5 1.5 0 01-.727 1.573l-2.203 1.102a11.002 11.002 0 005.016 5.009l1.102-2.205a1.5 1.5 0 011.573-.727l4.955 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25A8.97 8.97 0 003.75 20.25H1.5a3 3 0 01-3-3V4.5z" /></svg>
+              <span>+92-345-5555555</span>
+            </div>
+            <div class="flex items-center text-gray-700">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-blue-600 mr-3"><path d="M3 8.688v7.022c0 1.278.895 2.37 2.129 2.369 1.235.002 2.129-.091 3.976 1.735a4.5 4.5 0 001.422-.254c1.491.784 1.503.853 2.473 1.43 1.364.798 2.846.645 3.5.165.655-.48.655-1.592.655-2.405V8.688c0-.979-.786-1.767-1.765-1.767h-13.5A1.766 1.766 0 003 8.688z" /></svg>
+              <span>mumbai@rentals.com</span>
+            </div>
+            <a href="tel:+923455555555" class="inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Call Host</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Get In Touch & Social Media -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-blue-200 pt-8">
+        <!-- Get In Touch -->
+        <div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">Get In Touch</h3>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-blue-600 mr-4 mt-1"><path d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.955a1.5 1.5 0 01-.727 1.573l-2.203 1.102a11.002 11.002 0 005.016 5.009l1.102-2.205a1.5 1.5 0 011.573-.727l4.955 1.105c.834.209 1.42.959 1.42 1.819V19.5a3 3 0 01-3 3h-2.25A8.97 8.97 0 003.75 20.25H1.5a3 3 0 01-3-3V4.5z" /></svg>
+              <div>
+                <p class="font-semibold text-gray-800">Phone</p>
+                <p class="text-gray-700">+92-321-AIRBNB1</p>
+                <p class="text-sm text-gray-600">(Available 24/7)</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-blue-600 mr-4 mt-1"><path d="M3 8.688v7.022c0 1.278.895 2.37 2.129 2.369 1.235.002 2.129-.091 3.976 1.735a4.5 4.5 0 001.422-.254c1.491.784 1.503.853 2.473 1.43 1.364.798 2.846.645 3.5.165.655-.48.655-1.592.655-2.405V8.688c0-.979-.786-1.767-1.765-1.767h-13.5A1.766 1.766 0 003 8.688z" /></svg>
+              <div>
+                <p class="font-semibold text-gray-800">Email</p>
+                <p class="text-gray-700">support@airbnbclone.com</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-blue-600 mr-4 mt-1"><path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.75.75 0 00.723 0l.028-.015.071-.041a60.856 60.856 0 003.738-2.747 59.5 59.5 0 005.92-6.3 60.75 60.75 0 002.88-7.773 60.978 60.978 0 00.006-8.071 60.852 60.852 0 00-2.884-7.768 60.906 60.906 0 00-5.92-6.299 60.864 60.864 0 00-3.738-2.747A.75.75 0 0012 .75a.75.75 0 00-.722.016l-.028.015-.071.041A60.853 60.853 0 007.51 2.96a59.5 59.5 0 00-5.92 6.3 60.75 60.75 0 00-2.88 7.773 60.978 60.978 0 00-.006 8.071 60.852 60.852 0 002.884 7.768 60.906 60.906 0 005.92 6.299 60.864 60.864 0 003.738 2.747zM12 16.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" clip-rule="evenodd" /></svg>
+              <div>
+                <p class="font-semibold text-gray-800">Address</p>
+                <p class="text-gray-700">123 Main Street, Karachi, Pakistan</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Social Media -->
+        <div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-6">Follow Us</h3>
+          <p class="text-gray-700 mb-6">Stay connected for exclusive deals and travel inspiration.</p>
+          <div class="grid grid-cols-2 gap-4">
+            <a href="https://www.facebook.com/airbnbclone" target="_blank" class="bg-white hover:bg-blue-600 hover:text-white text-blue-600 font-bold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+              Facebook
+            </a>
+            <a href="https://www.twitter.com/airbnbclone" target="_blank" class="bg-white hover:bg-blue-400 hover:text-white text-blue-400 font-bold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M23.953 4.57a10 10 0 002.856-9.86 9.958 9.958 0 01-2.836.856 4.884 4.884 0 00-8.618-4.4 4.902 4.902 0 00-1.524 3.756 10 10 0 002.286-5.4A10 10 0 0020 1.57a4.882 4.882 0 00-8.595 3.56 4.9 4.9 0 00.64 1.945 10 10 0 002.348-2.25 4.88 4.88 0 011.36 1.22 9.971 9.971 0 00-1.04 2.45 4.88 4.88 0 00-1.095 4.675 10 10 0 00-8.12-8.73z" /></svg>
+              Twitter
+            </a>
+            <a href="https://www.instagram.com/airbnbclone" target="_blank" class="bg-white hover:bg-pink-600 hover:text-white text-pink-600 font-bold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.441 15.892c-1.001 1.541-2.747 2.522-4.741 2.522-3.264 0-5.92-2.656-5.92-5.92s2.656-5.92 5.92-5.92c1.994 0 3.74.981 4.741 2.522.39.575.704 1.247.92 1.98h-3.2c-.425-.756-1.277-1.26-2.26-1.26-1.564 0-2.84 1.276-2.84 2.84s1.276 2.84 2.84 2.84c.983 0 1.835-.504 2.26-1.26h3.2c-.216.733-.53 1.405-.92 1.98z" /></svg>
+              Instagram
+            </a>
+            <a href="https://www.linkedin.com/company/airbnbclone" target="_blank" class="bg-white hover:bg-blue-700 hover:text-white text-blue-700 font-bold py-3 px-4 rounded-lg transition flex items-center justify-center gap-2 shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Empty State (if no homes) -->
+    <% if(registeredHomes.length === 0) { %>
+      <div class="text-center py-16">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 4l4 2m-2-2l-4-2" />
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">No Properties Available</h3>
+        <p class="text-gray-600 mb-6">We'll have exciting new listings coming soon!</p>
+        <a href="/" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+          Return Home
+        </a>
+      </div>
+    <% } %>
+
+  </main>
+
+  <!-- Footer Section -->
+  <%- include('../partials/footer') %>
+
+</body>
 </html>

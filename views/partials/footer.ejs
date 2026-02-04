@@ -1,0 +1,44 @@
+<footer class="bg-gray-800 text-gray-300 py-8 mt-12">
+  <div class="container mx-auto max-w-6xl px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <h3 class="text-white font-bold text-lg mb-4">About Us</h3>
+        <p class="text-sm leading-relaxed">
+          Your trusted platform for finding and booking unique stays worldwide. Experience authentic hospitality with
+          our vetted hosts.
+        </p>
+      </div>
+      <div>
+        <h3 class="text-white font-bold text-lg mb-4">Quick Links</h3>
+        <ul class="text-sm space-y-2">
+          <li>
+            <a href="https://github.com/SaifUllah-Developer" class="hover:text-white transition">Checkout our GitHub</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/saifullahdeveloper/" class="hover:text-white transition"
+              >Checkout our LinkedIn</a
+            >
+          </li>
+          <% if (!isLoggedIn) { %>
+          <li><a href="/auth/signup" class="hover:text-white transition">Create new account and explore</a></li>
+          <% } %>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-white font-bold text-lg mb-4">Contact</h3>
+        <p class="text-sm">
+          <strong>Email:</strong> support@airbnb-clone.com<br />
+          <strong>Phone:</strong> +92 30000000000<br />
+          <strong>Hours:</strong> 24/7 Support
+        </p>
+      </div>
+    </div>
+    <div class="border-t border-gray-700 pt-6 text-center text-sm">
+      <p>
+        &copy; 2026 AirBnB Clone. All rights reserved. |
+        <a href="#" class="hover:text-white transition">Privacy Policy</a> |
+        <a href="#" class="hover:text-white transition">Terms of Service</a>
+      </p>
+    </div>
+  </div>
+</footer>

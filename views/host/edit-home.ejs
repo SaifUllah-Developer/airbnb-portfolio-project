@@ -1,57 +1,210 @@
 <%- include('../partials/head') %>
-  </head>
-  <body>
-    <%- include('../partials/nav') %>
-    <main class="container mx-auto mt-8 p-8 bg-white rounded-lg shadow-md min-h-screen">
-      <h1 class="text-3xl font-bold mb-6 text-center text-gray-800"><%= editing ? 'Edit' : 'Register'%> Your Home on AirBnB</h1>
-      <form action="/host/<%= editing ? 'edit-home' : 'add-home' %>" enctype="multipart/form-data" method="POST" class="max-w-md mx-auto">
-        <input type="hidden" name="id" value="<%= editing ? home._id : '' %>">
-        <input
-          type="text"
-          value="<%= editing ? home.houseName : '' %>"
-          name="houseName"
-          required
-          placeholder="Enter your House Name"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-        />
-        <input
-          type="text"
-          value="<%= editing ? home.price : '' %>"
-          name="price"
-          required
-          placeholder="Price Per Night"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-        />
-        <input
-          type="text"
-          value="<%= editing ? home.location : '' %>"
-          name="location"
-          required
-          placeholder="Location"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-        />
-        <input
-          type="text"
-          value="<%= editing ? home.rating : '' %>"
-          name="rating"
-          required
-          placeholder="Rating"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-        />
-        <input
-          type="file"
-          name="photo"
-          accept="image/jpg, image/jpeg, image/png"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-        />
-        <textarea
-          name="description"
-          placeholder="Describe your home"
-          class="w-full px-4 py-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
-        ><%= editing ? home.description : '' %></textarea>
+</head>
+<body class="bg-gray-50">
+  <%- include('../partials/nav') %>
 
-        <input type="submit" value="<%= editing ? 'Update Home' : 'Register Home' %>" class="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300" />
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-red-500 to-red-600 text-white py-12 px-4">
+    <div class="container mx-auto max-w-6xl">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-2">
+        <%= editing ? 'Update Your Home' : 'Add Your Home' %>
+      </h1>
+      <p class="text-red-50 text-lg">
+        <%= editing ? 'Make changes to your home details and pricing' : 'Share your home and start earning with AirBnB' %>
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container mx-auto max-w-4xl px-4 py-12">
+    
+    <!-- Back Button -->
+    <div class="mb-8">
+      <a href="/host/host-home-list" class="inline-flex items-center text-red-600 hover:text-red-700 font-semibold transition duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 mr-2"><path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 11.25h11.19a.75.75 0 010 1.5H9.31l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" /></svg>
+        Back to Homes
+      </a>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+      
+      <form action="/host/<%= editing ? 'edit-home' : 'add-home' %>" enctype="multipart/form-data" method="POST">
+        <input type="hidden" name="id" value="<%= editing ? home._id : '' %>">
+
+        <!-- Home Details Section -->
+        <div class="mb-10">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-500">Home Details</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- House Name -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Home Name
+              </label>
+              <input
+                type="text"
+                value="<%= editing ? home.houseName : '' %>"
+                name="houseName"
+                required
+                placeholder="e.g., Cozy Mountain Cabin"
+                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 transition duration-200"
+              />
+              <p class="text-xs text-gray-500 mt-1">Enter a descriptive name for your home</p>
+            </div>
+
+            <!-- Location -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Location
+              </label>
+              <input
+                type="text"
+                value="<%= editing ? home.location : '' %>"
+                name="location"
+                required
+                placeholder="e.g., Himachal Pradesh, India"
+                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 transition duration-200"
+              />
+              <p class="text-xs text-gray-500 mt-1">City, state, or region where your home is located</p>
+            </div>
+
+            <!-- Price -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Price Per Night
+              </label>
+              <div class="relative">
+                <span class="absolute left-4 top-3 text-gray-600 font-semibold">Rs</span>
+                <input
+                  type="number"
+                  value="<%= editing ? home.price : '' %>"
+                  name="price"
+                  required
+                  placeholder="5000"
+                  class="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 transition duration-200"
+                />
+              </div>
+              <p class="text-xs text-gray-500 mt-1">Price in Pakistani Rupees per night</p>
+            </div>
+
+            <!-- Rating -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Guest Rating
+              </label>
+              <input
+                type="number"
+                step="0.1"
+                min="1"
+                max="5"
+                value="<%= editing ? home.rating : '' %>"
+                name="rating"
+                required
+                placeholder="4.5"
+                class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 transition duration-200"
+              />
+              <p class="text-xs text-gray-500 mt-1">Rate between 1-5 stars based on guest reviews</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="mb-10">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-500">Home Description</h2>
+          
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+              Description
+            </label>
+            <textarea
+              name="description"
+              required
+              placeholder="Write a detailed description of your home. Mention amenities, unique features, house rules, and what makes your place special..."
+              rows="6"
+              class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-200 transition duration-200 resize-none"
+            ><%= editing ? home.description : '' %></textarea>
+            <p class="text-xs text-gray-500 mt-1">Provide at least 50 characters to help guests understand your home</p>
+          </div>
+        </div>
+
+        <!-- Photo Section -->
+        <div class="mb-10">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-4 border-b-2 border-red-500">Home Photo</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Photo Upload -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Upload Image
+              </label>
+              <div class="relative border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-red-500 hover:bg-red-50 transition duration-200 cursor-pointer">
+                <input
+                  type="file"
+                  name="photo"
+                  accept="image/jpg, image/jpeg, image/png"
+                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-12 h-12 text-gray-400 mx-auto mb-2">
+                    <path d="M12 2.25a9.75 9.75 0 100 19.5A9.75 9.75 0 0012 2.25zm0 16.5a6.75 6.75 0 110-13.5 6.75 6.75 0 010 13.5zm3.53-9.53a.75.75 0 11-1.06-1.06 2.25 2.25 0 10-3.182 3.182.75.75 0 001.06-1.06 1.5 1.5 0 111.06-1.06z" />
+                  </svg>
+                  <p class="text-gray-700 font-semibold">Click to upload or drag and drop</p>
+                  <p class="text-xs text-gray-500 mt-1">PNG, JPG or JPEG (Max 5MB)</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Photo Preview -->
+            <% if(editing && home.photo) { %>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Current Photo
+              </label>
+              <div class="bg-gray-100 rounded-lg overflow-hidden h-full flex items-center justify-center min-h-48">
+                <img src="<%= home.photo %>" alt="<%= home.houseName %>" class="w-full h-full object-cover">
+              </div>
+              <p class="text-xs text-gray-500 mt-2">Upload a new image to replace the current one</p>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-8 border-t border-gray-200">
+          <a href="/host/host-home-list" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg transition duration-200 text-center">
+            Cancel
+          </a>
+          <button 
+            type="submit" 
+            class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+              <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 00-.712-1.038m.712 1.038l2.25 2.25m-2.25-2.25L6.75 16.5m0 0L4.5 18.75m2.25-2.25L4.5 18.75M16.5 4.626l2.25 2.25m0 0l-2.25 2.25m2.25-2.25L9 17.25" clip-rule="evenodd" />
+            </svg>
+            <%= editing ? 'Update Home' : 'Add Home' %>
+          </button>
+        </div>
       </form>
-    </main>
-  </body>
+
+    </div>
+
+    <!-- Info Box -->
+    <div class="mt-10 bg-blue-50 border-l-4 border-blue-500 rounded-lg p-6">
+      <h3 class="text-lg font-bold text-blue-900 mb-2">📋 Tips for Success</h3>
+      <ul class="text-sm text-blue-800 space-y-1">
+        <li>• Use a clear, descriptive home name that highlights key features</li>
+        <li>• Set competitive pricing based on similar homes in your area</li>
+        <li>• Write detailed descriptions mentioning amenities and house rules</li>
+        <li>• Upload high-quality, well-lit photos of your home</li>
+        <li>• Maintain an honest rating to build trust with potential guests</li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- Footer Section -->
+  <%- include('../partials/footer') %>
+
+</body>
 </html>
