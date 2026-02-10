@@ -1,6 +1,8 @@
 <header class="bg-red-600 text-white p-4 shadow-md">
   <nav class="flex justify-between items-center max-w-7xl mx-auto">
-    <ul class="flex gap-4 items-center">
+
+    <!-- Desktop Links -->
+    <ul class="hidden sm:flex gap-4 items-center">
       <% if(!isLoggedIn || user.userType === 'guest') { %>
         <li>
           <a
@@ -13,7 +15,7 @@
       <% } %>
 
       <% if(isLoggedIn) { %>
-        <% if(user && user.userType === 'guest') { %>
+        <% if(user.userType === 'guest') { %>
           <li>
             <a
               href="/homes"
@@ -40,9 +42,7 @@
               Book Now
             </a>
           </li>
-
         <% } else { %>
-
           <li>
             <a
               href="/host/host-home-list"
@@ -60,29 +60,107 @@
               Add Home
             </a>
           </li>
-
         <% } %>
-    
+      <% } %>
+    </ul>
+
+    <!-- Desktop Auth Buttons -->
+    <div class="hidden sm:flex gap-2">
+      <% if(!isLoggedIn) { %>
+        <a
+          href="/auth/signup"
+          class="bg-white text-red-500 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300"
+        >
+          Signup
+        </a>
+        <a
+          href="/auth/login"
+          class="bg-white text-red-500 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300"
+        >
+          Login
+        </a>
+      <% } else { %>
+        <form action="/auth/logout" method="POST">
+          <button
+            type="submit"
+            class="bg-white text-red-500 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300"
+          >
+            Logout
+          </button>
+        </form>
+      <% } %>
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <div class="sm:hidden ml-auto">
+      <button id="mobile-menu-button" class="text-white focus:outline-none">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+  </nav>
+
+  <!-- Mobile Menu (Hidden by default) -->
+  <div id="mobile-menu" class="sm:hidden hidden px-4 pt-2 pb-4">
+    <ul class="flex flex-col gap-2">
+      <% if(!isLoggedIn || user.userType === 'guest') { %>
+        <li>
+          <a
+            href="/"
+            class="block py-2 px-4 rounded <%= currentPage === 'index' ? 'bg-red-400' : 'hover:bg-red-400' %>"
+          >
+            airbnb
+          </a>
+        </li>
       <% } %>
 
+      <% if(isLoggedIn) { %>
+        <% if(user.userType === 'guest') { %>
+          <li>
+            <a href="/homes" class="block py-2 px-4 rounded <%= currentPage === 'home' ? 'bg-red-400' : 'hover:bg-red-400' %>">Home List</a>
+          </li>
+          <li>
+            <a href="/favourites" class="block py-2 px-4 rounded <%= currentPage === 'favourites' ? 'bg-red-400' : 'hover:bg-red-400' %>">Favourites</a>
+          </li>
+          <li>
+            <a href="/bookings" class="block py-2 px-4 rounded <%= currentPage === 'bookings' ? 'bg-red-400' : 'hover:bg-red-400' %>">Book Now</a>
+          </li>
+        <% } else { %>
+          <li>
+            <a href="/host/host-home-list" class="block py-2 px-4 rounded <%= currentPage === 'hostHomes' ? 'bg-red-400' : 'hover:bg-red-400' %>">Host Homes</a>
+          </li>
+          <li>
+            <a href="/host/add-home" class="block py-2 px-4 rounded <%= currentPage === 'addHome' ? 'bg-red-400' : 'hover:bg-red-400' %>">Add Home</a>
+          </li>
+        <% } %>
+      <% } %>
+
+      <% if(!isLoggedIn) { %>
+        <li>
+          <a href="/auth/signup" class="block py-2 px-4 rounded bg-white text-red-500 hover:bg-gray-100">Signup</a>
+        </li>
+        <li>
+          <a href="/auth/login" class="block py-2 px-4 rounded bg-white text-red-500 hover:bg-gray-100">Login</a>
+        </li>
+      <% } else { %>
+        <li>
+          <form action="/auth/logout" method="POST">
+            <button type="submit" class="w-full text-left py-2 px-4 rounded bg-white text-red-500 hover:bg-gray-100">Logout</button>
+          </form>
+        </li>
+      <% } %>
     </ul>
-    <% if(!isLoggedIn) { %>
-      <a
-        href="/auth/signup"
-        class="bg-white text-red-500 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300 ml-auto mr-1"
-      >
-        Signup
-      </a>
-      <a
-        href="/auth/login"
-        class="bg-white text-red-500 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300"
-      >
-        Login
-      </a>
-    <% } else { %>
-      <form action="/auth/logout" method="POST">
-        <button type="submit" class="bg-white text-red-500 font-semibold py-2 px-6 rounded-full hover:bg-gray-100 transition duration-300">Logout</button>
-      </form>
-    <% } %>
-  </nav>
+  </div>
+
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    btn.addEventListener('click', () => {
+      menu.classList.toggle('hidden');
+    });
+  </script>
 </header>
